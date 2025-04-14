@@ -6,4 +6,5 @@ ruby file: ".ruby-version"
 
 group :development do
   gem "dotenv", "~> 3.1.7"
+  gem "solargraph"
 end
