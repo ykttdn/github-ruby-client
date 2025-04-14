@@ -14,5 +14,9 @@ module Github
         new(client, res.body[:login], res.body[:id])
       end
     end
+
+    def repos(opts = {})
+      Repository.all(self, opts)
+    end
   end
 end
