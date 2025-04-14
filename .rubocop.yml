@@ -1,0 +1,11 @@
+plugins:
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: always
