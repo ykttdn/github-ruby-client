@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Github
   class Response
     attr_reader :code, :headers, :body

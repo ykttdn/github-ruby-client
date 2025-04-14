@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Github
   class Request
     attr_reader :client, :resource, :opts
@@ -31,8 +33,8 @@ module Github
 
     def headers
       {
-        'Authorization': "token #{client.token}",
-        'Accept': 'application/vnd.github+json',
+        Authorization: "token #{client.token}",
+        Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28'
       }
     end

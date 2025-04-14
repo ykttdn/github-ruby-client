@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Github
   class User
     attr_reader :client, :name, :id
