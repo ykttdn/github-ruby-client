@@ -16,7 +16,6 @@ module Github
       uri = URI.parse(full_url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
-      headers = { 'Authorization' => "token #{client.token}" }
       response = http.get(full_url, headers)
       Response.new(response)
     end
@@ -28,6 +27,14 @@ module Github
       query = opts.map { |k, v| "#{k}=#{v}" }.join('&')
       url += "?#{query}" unless opts.empty?
       url
+    end
+
+    def headers
+      {
+        'Authorization': "token #{client.token}",
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      }
     end
   end
 end
