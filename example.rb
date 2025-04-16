@@ -9,4 +9,5 @@ require_relative 'lib/github_client'
 
 client = Github::Client.new(token)
 user = client.user
-user.repos(sort: :updated, direction: :desc)
+repos = user.repos(sort: :updated, direction: :desc)
+repos[0].pulls(state: :all)

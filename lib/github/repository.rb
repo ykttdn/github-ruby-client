@@ -19,5 +19,9 @@ module Github
         end
       end
     end
+
+    def pulls(opts = {})
+      PullRequest.all(self, opts)
+    end
   end
 end
