@@ -24,5 +24,9 @@ module Github
     def pulls(opts = {})
       PullRequest.all(self, opts)
     end
+
+    def issues(opts = {})
+      Issue.all(self, opts)
+    end
   end
 end
