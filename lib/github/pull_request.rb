@@ -12,6 +12,7 @@ module Github
     end
 
     class << self
+      # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests
       def all(repository, opts = {})
         res = Request.new(repository.owner.client,
                           :get,
