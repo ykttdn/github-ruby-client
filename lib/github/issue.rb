@@ -15,11 +15,11 @@ module Github
     class << self
       # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
       def all(repository, opts = {})
-        res = Request.new(repository.owner.client,
-                          :get,
-                          "/repos/#{repository.owner.name}/#{repository.name}/issues",
-                          opts)
-                     .perform
+        res = Http::Request.new(repository.owner.client,
+                                :get,
+                                "/repos/#{repository.owner.name}/#{repository.name}/issues",
+                                opts)
+                           .perform
         # GitHub's REST API considers every pull request an issue
         issues = res.body.select do |issue|
           issue[:pull_request].nil?

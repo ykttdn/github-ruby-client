@@ -14,11 +14,11 @@ module Github
     class << self
       # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests
       def all(repository, opts = {})
-        res = Request.new(repository.owner.client,
-                          :get,
-                          "/repos/#{repository.owner.name}/#{repository.name}/pulls",
-                          opts)
-                     .perform
+        res = Http::Request.new(repository.owner.client,
+                                :get,
+                                "/repos/#{repository.owner.name}/#{repository.name}/pulls",
+                                opts)
+                           .perform
         res.body.map do |pull|
           new(pull[:id], pull[:number], pull[:title], pull[:state])
         end
