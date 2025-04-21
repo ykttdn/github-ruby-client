@@ -27,8 +27,12 @@ module Github
 
       def request_url
         url = "#{BASE_URL}#{resource}"
-        query = opts.map { |k, v| "#{k}=#{v}" }.join('&')
-        url += "?#{query}" unless opts.empty?
+
+        if opts[:params] && !opts[:params].empty?
+          query = opts[:params].map { |k, v| "#{k}=#{v}" }.join('&')
+          url += "?#{query}" unless opts.empty?
+        end
+
         url
       end
 
