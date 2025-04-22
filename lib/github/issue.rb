@@ -28,6 +28,18 @@ module Github
           new(issue[:id], issue[:number], issue[:title], issue[:body], issue[:state])
         end
       end
+
+      # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#create-an-issue
+      def create(repository, title:, body:)
+        res = Http::Request.new(repository.owner.client,
+                                :post,
+                                "/repos/#{repository.owner.name}/#{repository.name}/issues",
+                                body: {
+                                  title:,
+                                  body:
+                                }).perform
+        new(res.body[:id], res.body[:number], res.body[:title], res.body[:body], res.body[:state])
+      end
     end
   end
 end

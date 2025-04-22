@@ -3,7 +3,7 @@
 module Github
   module Http
     class Request
-      attr_reader :client, :resource, :opts
+      attr_reader :client, :method, :resource, :opts
 
       BASE_URL = 'https://api.github.com'
 
@@ -19,7 +19,14 @@ module Github
         uri = URI.parse(full_url)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
-        response = http.get(full_url, headers)
+        response = case method
+                   when :get
+                     http.get(full_url, headers)
+                   when :post
+                     http.post(full_url, opts[:body].to_json, headers)
+                   else
+                     raise ArgumentError, "Unsupported HTTP method: #{method}"
+                   end
         Response.new(response)
       end
 
