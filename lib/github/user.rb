@@ -11,7 +11,7 @@ module Github
 
     class << self
       # https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-the-authenticated-user
-      def load
+      def me
         res = Http::Request.new(:get, '/user').perform
         new(res.body[:login], res.body[:id])
       end

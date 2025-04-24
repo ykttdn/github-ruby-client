@@ -8,7 +8,7 @@ token = ENV.fetch('GH_PAT')
 require_relative 'lib/github_client'
 
 Github::Client.token = token
-user = Github::User.load
+user = Github::User.me
 repo = user.repos(params: { sort: :updated, direction: :desc }).first
 repo.pulls(params: { state: :all })
 repo.issues(params: { state: :all })
