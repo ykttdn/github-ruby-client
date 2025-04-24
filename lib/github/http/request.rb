@@ -23,6 +23,8 @@ module Github
                      http.get(full_url, headers)
                    when :post
                      http.post(full_url, opts[:body].to_json, headers)
+                   when :patch
+                     http.patch(full_url, opts[:body].to_json, headers)
                    else
                      raise ArgumentError, "Unsupported HTTP method: #{method}"
                    end

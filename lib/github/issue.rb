@@ -2,10 +2,12 @@
 
 module Github
   class Issue
-    attr_reader :id, :number, :title, :body, :state
+    attr_reader :id, :repository, :number
+    attr_accessor :title, :body, :state
 
-    def initialize(id, number, title, body, state)
+    def initialize(id, repository, number, title, body, state)
       @id = id
+      @repository = repository
       @number = number
       @title = title
       @body = body
@@ -24,7 +26,7 @@ module Github
           issue[:pull_request].nil?
         end
         issues.map do |issue|
-          new(issue[:id], issue[:number], issue[:title], issue[:body], issue[:state])
+          new(issue[:id], repository, issue[:number], issue[:title], issue[:body], issue[:state])
         end
       end
 
@@ -36,8 +38,26 @@ module Github
                                   title:,
                                   body:
                                 }).perform
-        new(res.body[:id], res.body[:number], res.body[:title], res.body[:body], res.body[:state])
+        new(res.body[:id], repository, res.body[:number], res.body[:title], res.body[:body], res.body[:state])
       end
+    end
+
+    # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#update-an-issue
+    def update(title: nil, body: nil, state: nil)
+      request_body = {}
+      request_body[:title] = title if title
+      request_body[:body] = body if body
+      request_body[:state] = state if %i[open closed].include?(state)
+
+      res = Http::Request.new(:patch,
+                              "/repos/#{repository.owner.name}/#{repository.name}/issues/#{number}",
+                              body: request_body).perform
+
+      self.title = res.body[:title] if title
+      self.body = res.body[:body] if body
+      self.state = res.body[:state].to_sym if state
+
+      self
     end
   end
 end

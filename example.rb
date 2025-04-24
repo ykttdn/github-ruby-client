@@ -24,3 +24,6 @@ issue_body = <<~BODY
 BODY
 issue = Github::Issue.create(repo, title: issue_title, body: issue_body)
 issue.number
+
+issue.update(title: 'Updated issue title')
+issue.title
