@@ -27,3 +27,6 @@ issue.number
 
 issue.update(title: 'Updated issue title')
 issue.title
+
+issue.close(:completed)
+issue.state

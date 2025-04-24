@@ -43,11 +43,12 @@ module Github
     end
 
     # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#update-an-issue
-    def update(title: nil, body: nil, state: nil)
+    def update(title: nil, body: nil, state: nil, state_reason: nil)
       request_body = {}
       request_body[:title] = title if title
       request_body[:body] = body if body
       request_body[:state] = state if %i[open closed].include?(state)
+      request_body[:state_reason] = state_reason if state_reason
 
       res = Http::Request.new(:patch,
                               "/repos/#{repository.owner.name}/#{repository.name}/issues/#{number}",
@@ -58,6 +59,10 @@ module Github
       self.state = res.body[:state].to_sym if state
 
       self
+    end
+
+    def close(state_reason = :completed)
+      update(state: :closed, state_reason:)
     end
   end
 end
