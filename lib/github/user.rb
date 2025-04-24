@@ -17,8 +17,8 @@ module Github
       end
     end
 
-    def repos(opts = {})
-      Repository.all(self, opts)
+    def repos(params = {})
+      Repository.all(self, params)
     end
   end
 end

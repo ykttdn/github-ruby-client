@@ -13,20 +13,20 @@ module Github
 
     class << self
       # https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-the-authenticated-user
-      def all(user, opts = {})
-        res = Http::Request.new(:get, '/user/repos', opts).perform
+      def all(user, params = {})
+        res = Http::Request.new(:get, '/user/repos', params:).perform
         res.body.map do |repo|
           new(repo[:id], repo[:name], user, repo[:private])
         end
       end
     end
 
-    def pulls(opts = {})
-      PullRequest.all(self, opts)
+    def pulls(params = {})
+      PullRequest.all(self, params)
     end
 
-    def issues(opts = {})
-      Issue.all(self, opts)
+    def issues(params = {})
+      Issue.all(self, params)
     end
   end
 end
