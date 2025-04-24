@@ -3,12 +3,11 @@
 module Github
   module Http
     class Request
-      attr_reader :client, :method, :resource, :opts
+      attr_reader :method, :resource, :opts
 
       BASE_URL = 'https://api.github.com'
 
-      def initialize(client, method, resource, opts = {})
-        @client = client
+      def initialize(method, resource, opts = {})
         @method = method
         @resource = resource
         @opts = opts
@@ -45,7 +44,7 @@ module Github
 
       def headers
         {
-          Authorization: "token #{client.token}",
+          Authorization: "token #{Github::Client.token}",
           Accept: 'application/vnd.github+json',
           'X-GitHub-Api-Version': '2022-11-28'
         }

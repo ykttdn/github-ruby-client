@@ -15,8 +15,7 @@ module Github
     class << self
       # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#list-repository-issues
       def all(repository, opts = {})
-        res = Http::Request.new(repository.owner.client,
-                                :get,
+        res = Http::Request.new(:get,
                                 "/repos/#{repository.owner.name}/#{repository.name}/issues",
                                 opts)
                            .perform
@@ -31,8 +30,7 @@ module Github
 
       # https://docs.github.com/en/rest/issues/issues?apiVersion=2022-11-28#create-an-issue
       def create(repository, title:, body:)
-        res = Http::Request.new(repository.owner.client,
-                                :post,
+        res = Http::Request.new(:post,
                                 "/repos/#{repository.owner.name}/#{repository.name}/issues",
                                 body: {
                                   title:,

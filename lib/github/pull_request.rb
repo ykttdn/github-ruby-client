@@ -14,8 +14,7 @@ module Github
     class << self
       # https://docs.github.com/en/rest/pulls/pulls?apiVersion=2022-11-28#list-pull-requests
       def all(repository, opts = {})
-        res = Http::Request.new(repository.owner.client,
-                                :get,
+        res = Http::Request.new(:get,
                                 "/repos/#{repository.owner.name}/#{repository.name}/pulls",
                                 opts)
                            .perform

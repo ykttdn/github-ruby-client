@@ -2,19 +2,18 @@
 
 module Github
   class User
-    attr_reader :client, :name, :id
+    attr_reader :name, :id
 
-    def initialize(client, name, id)
-      @client = client
+    def initialize(name, id)
       @name = name
       @id = id
     end
 
     class << self
       # https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28#get-the-authenticated-user
-      def load(client)
-        res = Http::Request.new(client, :get, '/user').perform
-        new(client, res.body[:login], res.body[:id])
+      def load
+        res = Http::Request.new(:get, '/user').perform
+        new(res.body[:login], res.body[:id])
       end
     end
 

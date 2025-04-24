@@ -2,14 +2,8 @@
 
 module Github
   class Client
-    attr_reader :token
-
-    def initialize(token)
-      @token = token
-    end
-
-    def user
-      User.load(self)
+    class << self
+      attr_accessor :token
     end
   end
 end

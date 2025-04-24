@@ -14,7 +14,7 @@ module Github
     class << self
       # https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-the-authenticated-user
       def all(user, opts = {})
-        res = Http::Request.new(user.client, :get, '/user/repos', opts).perform
+        res = Http::Request.new(:get, '/user/repos', opts).perform
         res.body.map do |repo|
           new(repo[:id], repo[:name], user, repo[:private])
         end
